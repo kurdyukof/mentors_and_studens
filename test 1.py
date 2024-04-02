@@ -4,89 +4,73 @@ class Student:
         self.surname = surname
         self.gender = gender
         self.finished_courses = []
+        self.courses = []
         self.courses_in_progress = []
         self.grades = {}
         self.courses_attached = []
 
-    def rate_hw(self, student, course, grade):
-        if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress:
-            if course in student.grades:
-                student.grades[course] += [grade]
+    def rate_bl(self, lecturer, l_course, grade):
+        if isinstance(lecturer,
+                      Lecturer) and l_course in self.courses_attached and l_course in lecturer.l_courses_in_progress:
+            if l_course in lecturer.grades:
+                lecturer.grades[l_course] += [grade]
             else:
-                student.grades[course] = [grade]
+                lecturer.grades[l_course] = [grade]
         else:
             return 'Ошибка'
-
-    def rate_hw(self, best_student, param, param1):
-        pass
 
 
 class Mentor:
     def __init__(self, name, surname):
         self.name = name
         self.surname = surname
+        self.courses_attached = []
 
 
 class Lecturer(Mentor):
     def __init__(self, name, surname):
         super().__init__(name, surname)
-        self.corses_attached = []
-        self.lecturer = Lecturer
-        self.grades = {}
+        self.l_courses_attached = []
         self.courses_attached = []
-        self.finished_courses = []
-        self.courses_in_progress = []
-
-    def rate_hw(self, lecturer, course, grade):
-        if isinstance(lecturer, Lecturer) and course in self.courses_attached and course in lecturer.courses_in_progress:
-            if course in lecturer.grades:
-                lecturer.grades[course] += [grade]
-            else:
-                lecturer.grades[course] = [grade]
-        else:
-            return 'Ошибка'
+        self.grades = {}
+        self.lecturers = Lecturer
 
 
 class Reviewer(Mentor):
     def __init__(self, name, surname):
         super().__init__(name, surname)
-        self.reviewer = reviewer
         self.grades = {}
         self.finished_courses = []
         self.courses_in_progress = []
         self.courses_attached = []
+        self.course = []
 
-        def rate_hw(self, lecturer, course, grade):
-            if isinstance(lecturer,
-                          Lecturer) and course in self.courses_attached and course in lecturer.courses_in_progress:
-                if course in lecturer.grades:
-                    lecturer.grades[course] += [grade]
-                else:
-                    lecturer.grades[course] = [grade]
+    def rate_nw(self, student, course, grade):
+        if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress:
+            if course in student.grades:
+                student.grades[course] += [grade]
             else:
-                return 'Ошибка'
-
+                student.grades[course] = [grade]
+        else:
+            return "Ошибка!"
 
 
 best_student = Student('Ruoy', 'Eman', 'your_gender')
 best_student.courses_in_progress += ['Python']
 
-cool_reviewer = Student('Some', 'Buddy','your_gender')
+cool_reviewer = Reviewer('Some', 'Buddy')
 cool_reviewer.courses_attached += ['Python']
 
-cool_reviewer.rate_hw(best_student, 'Python', 10)
-cool_reviewer.rate_hw(best_student, 'Python', 10)
-cool_reviewer.rate_hw(best_student, 'Python', 10)
+cool_reviewer.rate_nw(best_student, 'Python', 10)
+cool_reviewer.rate_nw(best_student, 'Python', 10)
+cool_reviewer.rate_nw(best_student, 'Python', 10)
 
-best_lecturer = Lecturer('Semen', 'Semenov')
-best_lecturer.courses_attached += ['Python']
+best_lecturer = Lecturer('Chaki', 'Dools')
+best_lecturer.l_courses_attached += ['Git']
 
-cool_student = Lecturer('Ivan', 'Ivanov')
-cool_student.corses_attached += ['Git']
-
-cool_student.rate_hw(best_lecturer, 'Git', 10)
-cool_student.rate_hw(best_lecturer, 'Git', 10)
-cool_student.rate_hw(best_lecturer, 'Git', 10)
+student.rate_bl(best_lecturer, 'Git', 15)
+cools_student.rate_bl(best_lecturer, 'Git', 15)
+cools_student.rate_bl(best_lecturer, 'Git', 15)
 
 print(best_student.grades)
 print(best_lecturer.grades)
